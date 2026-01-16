@@ -1,0 +1,18 @@
+{
+  "optimal_threshold": 0.5399999999999998,
+  "selected_model": "xgboost",
+  "threshold_methods": {
+    "f1": {
+      "threshold": 0.5399999999999998,
+      "f1_score": 0.63954802259887
+    },
+    "youden": {
+      "threshold": 0.5399999999999998,
+      "f1_score": 0.63954802259887
+    },
+    "cost": {
+      "threshold": 0.3199999999999999,
+      "f1_score": 0.5849535080304311
+    }
+  }
+}

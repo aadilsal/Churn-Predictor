@@ -1,0 +1,1025 @@
+{
+  "generated_at": "2026-01-17T00:10:14.793996",
+  "data_summary": {
+    "total_customers": 7043,
+    "churn_rate": 0.2653698707936959,
+    "avg_churn_probability": 0.4169122576713562
+  },
+  "global_explanations": {
+    "timestamp": "2026-01-17T00:10:14.728370",
+    "samples_analyzed": 7043,
+    "top_features": [
+      {
+        "feature": "Contract_Two year",
+        "business_name": "Two-Year Contract",
+        "importance": 0.25440317392349243,
+        "direction": "protective"
+      },
+      {
+        "feature": "InternetService_Fiber optic",
+        "business_name": "Fiber Optic Internet",
+        "importance": 0.13607054948806763,
+        "direction": "protective"
+      },
+      {
+        "feature": "Contract_One year",
+        "business_name": "One-Year Contract",
+        "importance": 0.12911516427993774,
+        "direction": "protective"
+      },
+      {
+        "feature": "tenure",
+        "business_name": "Customer Tenure (months)",
+        "importance": 0.10648591816425323,
+        "direction": "protective"
+      },
+      {
+        "feature": "MonthlyCharges",
+        "business_name": "Monthly Charges ($)",
+        "importance": 0.06514018774032593,
+        "direction": "protective"
+      },
+      {
+        "feature": "TotalCharges",
+        "business_name": "Total Charges ($)",
+        "importance": 0.059265539050102234,
+        "direction": "protective"
+      },
+      {
+        "feature": "PaymentMethod_Electronic check",
+        "business_name": "Electronic Check Payment",
+        "importance": 0.049631260335445404,
+        "direction": "protective"
+      },
+      {
+        "feature": "StreamingMovies_Yes",
+        "business_name": "Streaming Movies",
+        "importance": 0.026109138503670692,
+        "direction": "protective"
+      },
+      {
+        "feature": "OnlineSecurity_Yes",
+        "business_name": "Online Security Service",
+        "importance": 0.025368520990014076,
+        "direction": "protective"
+      },
+      {
+        "feature": "PaperlessBilling_Yes",
+        "business_name": "Paperless Billing",
+        "importance": 0.020128745585680008,
+        "direction": "protective"
+      },
+      {
+        "feature": "TechSupport_Yes",
+        "business_name": "Tech Support Service",
+        "importance": 0.019087180495262146,
+        "direction": "protective"
+      },
+      {
+        "feature": "PhoneService_Yes",
+        "business_name": "Phone Service",
+        "importance": 0.018891314044594765,
+        "direction": "protective"
+      },
+      {
+        "feature": "InternetService_No",
+        "business_name": "No Internet Service",
+        "importance": 0.018102793022990227,
+        "direction": "protective"
+      },
+      {
+        "feature": "StreamingTV_Yes",
+        "business_name": "Streaming TV",
+        "importance": 0.017698314040899277,
+        "direction": "protective"
+      },
+      {
+        "feature": "SeniorCitizen_Yes",
+        "business_name": "Senior Citizen",
+        "importance": 0.011961225420236588,
+        "direction": "protective"
+      }
+    ],
+    "stability": {
+      "score": 0.999035043262186,
+      "interpretation": "stable"
+    }
+  },
+  "sample_explanations": [
+    {
+      "customer_id": "customer_5920",
+      "churn_probability": 0.6395696401596069,
+      "risk_level": "MEDIUM",
+      "summary": "This customer has a MODERATE risk of churning (64% probability). Key risk factors include: Fiber Optic Internet, Two-Year Contract, One-Year Contract. Factors reducing risk: Customer Tenure (months), Total Charges ($).",
+      "risk_factors": [
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.3497312366962433
+        },
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.3022787570953369
+        },
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.219807431101799
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.2419198602437973
+        },
+        {
+          "factor": "Total Charges ($)",
+          "original_feature": "TotalCharges",
+          "contribution": 0.13214519619941711
+        }
+      ],
+      "recommended_actions": [
+        {
+          "feature": "Fiber Optic Internet",
+          "recommendation": "Review pricing competitiveness for fiber plans",
+          "action": "Consider loyalty discount or bundle offer",
+          "priority": "HIGH"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": -0.2419198602437973,
+          "MonthlyCharges": 0.0008474078495055437,
+          "TotalCharges": -0.13214519619941711,
+          "gender_Male": 0.0018464388558641076,
+          "SeniorCitizen_Yes": 0.040551211684942245,
+          "Partner_Yes": 0.001913354150019586,
+          "Dependents_Yes": 0.0033691865392029285,
+          "PhoneService_Yes": -0.020647164434194565,
+          "MultipleLines_Yes": -0.04749128967523575,
+          "InternetService_Fiber optic": 0.3497312366962433,
+          "InternetService_No": 0.016594482585787773,
+          "OnlineSecurity_Yes": 0.013562735170125961,
+          "OnlineBackup_Yes": -0.007080319803208113,
+          "DeviceProtection_Yes": -0.00035409705014899373,
+          "TechSupport_Yes": 0.01788494363427162,
+          "StreamingTV_Yes": -0.0861596092581749,
+          "StreamingMovies_Yes": 0.0287938192486763,
+          "Contract_One year": 0.219807431101799,
+          "Contract_Two year": 0.3022787570953369,
+          "PaperlessBilling_Yes": 0.025694584473967552,
+          "PaymentMethod_Credit card (automatic)": -0.0012657337356358767,
+          "PaymentMethod_Electronic check": 0.08249105513095856,
+          "PaymentMethod_Mailed check": -6.534124258905649e-05
+        }
+      }
+    },
+    {
+      "customer_id": "customer_6242",
+      "churn_probability": 0.16805341839790344,
+      "risk_level": "LOW",
+      "summary": "This customer has a LOW risk of churning (17% probability). Key risk factors include: Monthly Charges ($), Fiber Optic Internet. Factors reducing risk: Two-Year Contract, Customer Tenure (months).",
+      "risk_factors": [
+        {
+          "factor": "Monthly Charges ($)",
+          "original_feature": "MonthlyCharges",
+          "contribution": 0.22510981559753418
+        },
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.136154904961586
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 1.22268807888031
+        },
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.3625810146331787
+        },
+        {
+          "factor": "Online Security Service",
+          "original_feature": "OnlineSecurity_Yes",
+          "contribution": 0.10361643880605698
+        }
+      ],
+      "recommended_actions": [
+        {
+          "feature": "Two-Year Contract",
+          "recommendation": "Customer locked in - focus on satisfaction",
+          "action": "Ensure positive experience for renewal",
+          "priority": "LOW"
+        },
+        {
+          "feature": "Monthly Charges ($)",
+          "recommendation": "Review if charges align with perceived value",
+          "action": "Offer plan optimization or value-add services",
+          "priority": "MEDIUM"
+        },
+        {
+          "feature": "Fiber Optic Internet",
+          "recommendation": "Review pricing competitiveness for fiber plans",
+          "action": "Consider loyalty discount or bundle offer",
+          "priority": "HIGH"
+        },
+        {
+          "feature": "Online Security Service",
+          "recommendation": "Customer uses security service - good engagement",
+          "action": "Cross-sell complementary services",
+          "priority": "LOW"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": -0.3625810146331787,
+          "MonthlyCharges": 0.22510981559753418,
+          "TotalCharges": -0.06287858635187149,
+          "gender_Male": -0.013654652051627636,
+          "SeniorCitizen_Yes": -0.01853591576218605,
+          "Partner_Yes": -0.0007648093160241842,
+          "Dependents_Yes": -0.01942269690334797,
+          "PhoneService_Yes": -0.010569287464022636,
+          "MultipleLines_Yes": 0.011629150249063969,
+          "InternetService_Fiber optic": 0.136154904961586,
+          "InternetService_No": 0.0070452396757900715,
+          "OnlineSecurity_Yes": -0.10361643880605698,
+          "OnlineBackup_Yes": -0.06299637258052826,
+          "DeviceProtection_Yes": -0.0005349662969820201,
+          "TechSupport_Yes": -0.06042737513780594,
+          "StreamingTV_Yes": -0.02493453398346901,
+          "StreamingMovies_Yes": 0.025624915957450867,
+          "Contract_One year": 0.07787255197763443,
+          "Contract_Two year": -1.22268807888031,
+          "PaperlessBilling_Yes": -0.03709139674901962,
+          "PaymentMethod_Credit card (automatic)": -0.004635527729988098,
+          "PaymentMethod_Electronic check": -0.08287680149078369,
+          "PaymentMethod_Mailed check": 2.6788911782205105e-05
+        }
+      }
+    },
+    {
+      "customer_id": "customer_836",
+      "churn_probability": 0.18454335629940033,
+      "risk_level": "LOW",
+      "summary": "This customer has a LOW risk of churning (18% probability). Key risk factors include: Two-Year Contract. Factors reducing risk: One-Year Contract, Customer Tenure (months).",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.16974478960037231
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.45740044116973877
+        },
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.3370707035064697
+        },
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.2818537652492523
+        },
+        {
+          "factor": "Monthly Charges ($)",
+          "original_feature": "MonthlyCharges",
+          "contribution": 0.19366268813610077
+        }
+      ],
+      "recommended_actions": [
+        {
+          "feature": "One-Year Contract",
+          "recommendation": "Monitor for contract renewal opportunity",
+          "action": "Proactive outreach before contract ends",
+          "priority": "MEDIUM"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": -0.3370707035064697,
+          "MonthlyCharges": -0.19366268813610077,
+          "TotalCharges": -0.15444202721118927,
+          "gender_Male": 0.003616540925577283,
+          "SeniorCitizen_Yes": -0.017199501395225525,
+          "Partner_Yes": 0.004058091435581446,
+          "Dependents_Yes": -0.02166745252907276,
+          "PhoneService_Yes": -0.018955010920763016,
+          "MultipleLines_Yes": -0.0088352644816041,
+          "InternetService_Fiber optic": -0.2818537652492523,
+          "InternetService_No": 0.0019114036113023758,
+          "OnlineSecurity_Yes": -0.0795399397611618,
+          "OnlineBackup_Yes": -0.00020907819271087646,
+          "DeviceProtection_Yes": 0.006256076507270336,
+          "TechSupport_Yes": -0.08878756314516068,
+          "StreamingTV_Yes": -0.018152274191379547,
+          "StreamingMovies_Yes": 0.11809473484754562,
+          "Contract_One year": -0.45740044116973877,
+          "Contract_Two year": 0.16974478960037231,
+          "PaperlessBilling_Yes": -0.04445061832666397,
+          "PaymentMethod_Credit card (automatic)": 0.013366070576012135,
+          "PaymentMethod_Electronic check": -0.0858108177781105,
+          "PaymentMethod_Mailed check": -0.00013283395674079657
+        }
+      }
+    },
+    {
+      "customer_id": "customer_5037",
+      "churn_probability": 0.801384687423706,
+      "risk_level": "HIGH",
+      "summary": "This customer has a HIGH risk of churning (80% probability). Key risk factors include: Two-Year Contract, Fiber Optic Internet, Customer Tenure (months).",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.3779257535934448
+        },
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.3080042600631714
+        },
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.2897821068763733
+        },
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.24274493753910065
+        },
+        {
+          "factor": "Monthly Charges ($)",
+          "original_feature": "MonthlyCharges",
+          "contribution": 0.11502165347337723
+        }
+      ],
+      "protective_factors": [],
+      "recommended_actions": [
+        {
+          "feature": "Fiber Optic Internet",
+          "recommendation": "Review pricing competitiveness for fiber plans",
+          "action": "Consider loyalty discount or bundle offer",
+          "priority": "HIGH"
+        },
+        {
+          "feature": "Customer Tenure (months)",
+          "recommendation": "New customer requires onboarding attention",
+          "action": "Engage with welcome program and satisfaction check",
+          "priority": "HIGH"
+        },
+        {
+          "feature": "Monthly Charges ($)",
+          "recommendation": "Review if charges align with perceived value",
+          "action": "Offer plan optimization or value-add services",
+          "priority": "MEDIUM"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": 0.2897821068763733,
+          "MonthlyCharges": 0.11502165347337723,
+          "TotalCharges": 0.09371078014373779,
+          "gender_Male": -0.0030256540048867464,
+          "SeniorCitizen_Yes": -0.002813955768942833,
+          "Partner_Yes": 0.002084367675706744,
+          "Dependents_Yes": 0.005359624978154898,
+          "PhoneService_Yes": -0.012914080172777176,
+          "MultipleLines_Yes": -0.041442275047302246,
+          "InternetService_Fiber optic": 0.3080042600631714,
+          "InternetService_No": 0.025025134906172752,
+          "OnlineSecurity_Yes": 0.04544184356927872,
+          "OnlineBackup_Yes": -0.007348534185439348,
+          "DeviceProtection_Yes": -0.00035696174018085003,
+          "TechSupport_Yes": 0.02807898446917534,
+          "StreamingTV_Yes": 0.038332585245370865,
+          "StreamingMovies_Yes": -0.05288634076714516,
+          "Contract_One year": 0.24274493753910065,
+          "Contract_Two year": 0.3779257535934448,
+          "PaperlessBilling_Yes": 0.020756270736455917,
+          "PaymentMethod_Credit card (automatic)": -0.0009643755038268864,
+          "PaymentMethod_Electronic check": -0.08284793794155121,
+          "PaymentMethod_Mailed check": 0.0020444595720618963
+        }
+      }
+    },
+    {
+      "customer_id": "customer_5085",
+      "churn_probability": 0.4129849076271057,
+      "risk_level": "MEDIUM",
+      "summary": "This customer has a MODERATE risk of churning (41% probability). Key risk factors include: Two-Year Contract, One-Year Contract. Factors reducing risk: Fiber Optic Internet, Customer Tenure (months).",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.23517099022865295
+        },
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.19873955845832825
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.34620657563209534
+        },
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.2681390047073364
+        },
+        {
+          "factor": "Total Charges ($)",
+          "original_feature": "TotalCharges",
+          "contribution": 0.25943171977996826
+        }
+      ],
+      "recommended_actions": [],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": -0.2681390047073364,
+          "MonthlyCharges": -0.13924510776996613,
+          "TotalCharges": -0.25943171977996826,
+          "gender_Male": -4.955567419528961e-05,
+          "SeniorCitizen_Yes": -0.009545407257974148,
+          "Partner_Yes": -0.0016017269808799028,
+          "Dependents_Yes": 0.009164819493889809,
+          "PhoneService_Yes": 0.19200685620307922,
+          "MultipleLines_Yes": -0.017133407294750214,
+          "InternetService_Fiber optic": -0.34620657563209534,
+          "InternetService_No": 0.014661863446235657,
+          "OnlineSecurity_Yes": 0.02624722570180893,
+          "OnlineBackup_Yes": -0.06615210324525833,
+          "DeviceProtection_Yes": -0.0004540051450021565,
+          "TechSupport_Yes": -0.07059323787689209,
+          "StreamingTV_Yes": -0.040535490959882736,
+          "StreamingMovies_Yes": 0.023340489715337753,
+          "Contract_One year": 0.19873955845832825,
+          "Contract_Two year": 0.23517099022865295,
+          "PaperlessBilling_Yes": 0.013698877766728401,
+          "PaymentMethod_Credit card (automatic)": -0.0006807961035519838,
+          "PaymentMethod_Electronic check": 0.14902958273887634,
+          "PaymentMethod_Mailed check": 0.0008098511607386172
+        }
+      }
+    },
+    {
+      "customer_id": "customer_6452",
+      "churn_probability": 0.6548340320587158,
+      "risk_level": "MEDIUM",
+      "summary": "This customer has a MODERATE risk of churning (65% probability). Key risk factors include: Fiber Optic Internet, Two-Year Contract, One-Year Contract. Factors reducing risk: Online Security Service, Electronic Check Payment.",
+      "risk_factors": [
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.33369624614715576
+        },
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.3310641646385193
+        },
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.221767857670784
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Online Security Service",
+          "original_feature": "OnlineSecurity_Yes",
+          "contribution": 0.16300082206726074
+        },
+        {
+          "factor": "Electronic Check Payment",
+          "original_feature": "PaymentMethod_Electronic check",
+          "contribution": 0.12479457259178162
+        }
+      ],
+      "recommended_actions": [
+        {
+          "feature": "Fiber Optic Internet",
+          "recommendation": "Review pricing competitiveness for fiber plans",
+          "action": "Consider loyalty discount or bundle offer",
+          "priority": "HIGH"
+        },
+        {
+          "feature": "Online Security Service",
+          "recommendation": "Customer uses security service - good engagement",
+          "action": "Cross-sell complementary services",
+          "priority": "LOW"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": 0.04783952236175537,
+          "MonthlyCharges": 0.04105982556939125,
+          "TotalCharges": -0.08150388300418854,
+          "gender_Male": -0.008164114318788052,
+          "SeniorCitizen_Yes": -0.01937282085418701,
+          "Partner_Yes": 0.0013477037427946925,
+          "Dependents_Yes": 0.004783961921930313,
+          "PhoneService_Yes": -0.014152085408568382,
+          "MultipleLines_Yes": 0.033294711261987686,
+          "InternetService_Fiber optic": 0.33369624614715576,
+          "InternetService_No": 0.015203382819890976,
+          "OnlineSecurity_Yes": -0.16300082206726074,
+          "OnlineBackup_Yes": -0.0038165864534676075,
+          "DeviceProtection_Yes": -0.0011106808669865131,
+          "TechSupport_Yes": 0.04045753553509712,
+          "StreamingTV_Yes": 0.031885698437690735,
+          "StreamingMovies_Yes": -0.07766085118055344,
+          "Contract_One year": 0.221767857670784,
+          "Contract_Two year": 0.3310641646385193,
+          "PaperlessBilling_Yes": 0.02839520014822483,
+          "PaymentMethod_Credit card (automatic)": -0.002809770405292511,
+          "PaymentMethod_Electronic check": -0.12479457259178162,
+          "PaymentMethod_Mailed check": 0.0006881790468469262
+        }
+      }
+    },
+    {
+      "customer_id": "customer_3933",
+      "churn_probability": 0.27352240681648254,
+      "risk_level": "LOW",
+      "summary": "This customer has a LOW risk of churning (27% probability). Key risk factors include: Two-Year Contract, One-Year Contract. Factors reducing risk: Fiber Optic Internet, Monthly Charges ($).",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.23641616106033325
+        },
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.18500004708766937
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.48834261298179626
+        },
+        {
+          "factor": "Monthly Charges ($)",
+          "original_feature": "MonthlyCharges",
+          "contribution": 0.4116123914718628
+        },
+        {
+          "factor": "No Internet Service",
+          "original_feature": "InternetService_No",
+          "contribution": 0.13878849148750305
+        }
+      ],
+      "recommended_actions": [],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": -0.04616963863372803,
+          "MonthlyCharges": -0.4116123914718628,
+          "TotalCharges": -0.06434955447912216,
+          "gender_Male": -0.009014982730150223,
+          "SeniorCitizen_Yes": -0.01674770563840866,
+          "Partner_Yes": -0.0019221823895350099,
+          "Dependents_Yes": 0.016564683988690376,
+          "PhoneService_Yes": -0.06143054738640785,
+          "MultipleLines_Yes": -0.020257586613297462,
+          "InternetService_Fiber optic": -0.48834261298179626,
+          "InternetService_No": -0.13878849148750305,
+          "OnlineSecurity_Yes": 0.016468055546283722,
+          "OnlineBackup_Yes": -0.008635207079350948,
+          "DeviceProtection_Yes": -0.0027412138879299164,
+          "TechSupport_Yes": 0.007372991181910038,
+          "StreamingTV_Yes": -0.022539805620908737,
+          "StreamingMovies_Yes": -0.03641650080680847,
+          "Contract_One year": 0.18500004708766937,
+          "Contract_Two year": 0.23641616106033325,
+          "PaperlessBilling_Yes": -0.058365240693092346,
+          "PaymentMethod_Credit card (automatic)": -0.013253025710582733,
+          "PaymentMethod_Electronic check": -0.06053444743156433,
+          "PaymentMethod_Mailed check": 0.017216511070728302
+        }
+      }
+    },
+    {
+      "customer_id": "customer_4970",
+      "churn_probability": 0.24695159494876862,
+      "risk_level": "LOW",
+      "summary": "This customer has a LOW risk of churning (25% probability). Key risk factors include: Two-Year Contract. Factors reducing risk: One-Year Contract, Monthly Charges ($).",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.2087780237197876
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "One-Year Contract",
+          "original_feature": "Contract_One year",
+          "contribution": 0.8563879728317261
+        },
+        {
+          "factor": "Monthly Charges ($)",
+          "original_feature": "MonthlyCharges",
+          "contribution": 0.2277926504611969
+        },
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.20402608811855316
+        },
+        {
+          "factor": "Streaming Movies",
+          "original_feature": "StreamingMovies_Yes",
+          "contribution": 0.15222004055976868
+        }
+      ],
+      "recommended_actions": [
+        {
+          "feature": "One-Year Contract",
+          "recommendation": "Monitor for contract renewal opportunity",
+          "action": "Proactive outreach before contract ends",
+          "priority": "MEDIUM"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": 0.15082105994224548,
+          "MonthlyCharges": -0.2277926504611969,
+          "TotalCharges": 0.07884373515844345,
+          "gender_Male": 0.0035713198594748974,
+          "SeniorCitizen_Yes": -0.013351431116461754,
+          "Partner_Yes": 0.005354916676878929,
+          "Dependents_Yes": 0.003762402106076479,
+          "PhoneService_Yes": 0.09593366831541061,
+          "MultipleLines_Yes": -0.016725491732358932,
+          "InternetService_Fiber optic": -0.20402608811855316,
+          "InternetService_No": 0.05279412493109703,
+          "OnlineSecurity_Yes": 0.023095468059182167,
+          "OnlineBackup_Yes": -0.099421925842762,
+          "DeviceProtection_Yes": -0.00981522910296917,
+          "TechSupport_Yes": 0.019939573481678963,
+          "StreamingTV_Yes": -0.07769312709569931,
+          "StreamingMovies_Yes": -0.15222004055976868,
+          "Contract_One year": -0.8563879728317261,
+          "Contract_Two year": 0.2087780237197876,
+          "PaperlessBilling_Yes": 0.028514232486486435,
+          "PaymentMethod_Credit card (automatic)": -0.008481737226247787,
+          "PaymentMethod_Electronic check": -0.12375300377607346,
+          "PaymentMethod_Mailed check": -0.0019355524564161897
+        }
+      }
+    },
+    {
+      "customer_id": "customer_6905",
+      "churn_probability": 0.42971423268318176,
+      "risk_level": "MEDIUM",
+      "summary": "This customer has a MODERATE risk of churning (43% probability). Key risk factors include: Two-Year Contract, Phone Service. Factors reducing risk: Total Charges ($), Fiber Optic Internet.",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.23924624919891357
+        },
+        {
+          "factor": "Phone Service",
+          "original_feature": "PhoneService_Yes",
+          "contribution": 0.18643924593925476
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Total Charges ($)",
+          "original_feature": "TotalCharges",
+          "contribution": 0.30682897567749023
+        },
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.3049220144748688
+        },
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.27674320340156555
+        }
+      ],
+      "recommended_actions": [],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": -0.27674320340156555,
+          "MonthlyCharges": -0.15901806950569153,
+          "TotalCharges": -0.30682897567749023,
+          "gender_Male": 0.0034038242883980274,
+          "SeniorCitizen_Yes": -0.010530158877372742,
+          "Partner_Yes": -0.001944203395396471,
+          "Dependents_Yes": -0.032218411564826965,
+          "PhoneService_Yes": 0.18643924593925476,
+          "MultipleLines_Yes": -0.014675015583634377,
+          "InternetService_Fiber optic": -0.3049220144748688,
+          "InternetService_No": 0.02735261619091034,
+          "OnlineSecurity_Yes": 0.02336842752993107,
+          "OnlineBackup_Yes": -0.0579318106174469,
+          "DeviceProtection_Yes": -0.000980909215286374,
+          "TechSupport_Yes": 0.020095357671380043,
+          "StreamingTV_Yes": 0.033172380179166794,
+          "StreamingMovies_Yes": 0.02701820433139801,
+          "Contract_One year": 0.1784287691116333,
+          "Contract_Two year": 0.23924624919891357,
+          "PaperlessBilling_Yes": 0.010421426966786385,
+          "PaymentMethod_Credit card (automatic)": -4.889763658866286e-05,
+          "PaymentMethod_Electronic check": 0.1281159371137619,
+          "PaymentMethod_Mailed check": 0.0005034726927988231
+        }
+      }
+    },
+    {
+      "customer_id": "customer_3808",
+      "churn_probability": 0.3038681447505951,
+      "risk_level": "LOW",
+      "summary": "This customer has a LOW risk of churning (30% probability). Key risk factors include: Two-Year Contract, Customer Tenure (months). Factors reducing risk: Fiber Optic Internet, Monthly Charges ($).",
+      "risk_factors": [
+        {
+          "factor": "Two-Year Contract",
+          "original_feature": "Contract_Two year",
+          "contribution": 0.25629445910453796
+        },
+        {
+          "factor": "Customer Tenure (months)",
+          "original_feature": "tenure",
+          "contribution": 0.23011736571788788
+        }
+      ],
+      "protective_factors": [
+        {
+          "factor": "Fiber Optic Internet",
+          "original_feature": "InternetService_Fiber optic",
+          "contribution": 0.5314063429832458
+        },
+        {
+          "factor": "Monthly Charges ($)",
+          "original_feature": "MonthlyCharges",
+          "contribution": 0.4269663989543915
+        },
+        {
+          "factor": "No Internet Service",
+          "original_feature": "InternetService_No",
+          "contribution": 0.2415490448474884
+        }
+      ],
+      "recommended_actions": [
+        {
+          "feature": "Customer Tenure (months)",
+          "recommendation": "New customer requires onboarding attention",
+          "action": "Engage with welcome program and satisfaction check",
+          "priority": "HIGH"
+        }
+      ],
+      "technical_details": {
+        "base_probability": 0.005258509423583746,
+        "shap_values": {
+          "tenure": 0.23011736571788788,
+          "MonthlyCharges": -0.4269663989543915,
+          "TotalCharges": -0.07061843574047089,
+          "gender_Male": 0.0033014193177223206,
+          "SeniorCitizen_Yes": -0.02438640594482422,
+          "Partner_Yes": 0.008786933496594429,
+          "Dependents_Yes": -0.03253602609038353,
+          "PhoneService_Yes": -0.03915231674909592,
+          "MultipleLines_Yes": -0.008858028799295425,
+          "InternetService_Fiber optic": -0.5314063429832458,
+          "InternetService_No": -0.2415490448474884,
+          "OnlineSecurity_Yes": 0.033360548317432404,
+          "OnlineBackup_Yes": -0.01311720535159111,
+          "DeviceProtection_Yes": -0.0016557550989091396,
+          "TechSupport_Yes": 0.012306662276387215,
+          "StreamingTV_Yes": -0.01959718018770218,
+          "StreamingMovies_Yes": -0.03131562098860741,
+          "Contract_One year": 0.20140065252780914,
+          "Contract_Two year": 0.25629445910453796,
+          "PaperlessBilling_Yes": -0.05262444540858269,
+          "PaymentMethod_Credit card (automatic)": 0.000321021128911525,
+          "PaymentMethod_Electronic check": -0.07072830945253372,
+          "PaymentMethod_Mailed check": -0.015581411309540272
+        }
+      }
+    }
+  ],
+  "intervention_analysis": {
+    "high_risk_customers": 2862,
+    "avg_risk_probability": 0.6816739439964294,
+    "top_interventions": [
+      {
+        "feature": "Contract_Two year",
+        "target_value": 1,
+        "avg_risk_reduction": 0.4954785704612732,
+        "customers_below_threshold": 2850,
+        "pct_rescued": 99.58071278825996
+      },
+      {
+        "feature": "Contract_One year",
+        "target_value": 1,
+        "avg_risk_reduction": 0.2570226192474365,
+        "customers_below_threshold": 1961,
+        "pct_rescued": 68.51851851851852
+      },
+      {
+        "feature": "OnlineSecurity_Yes",
+        "target_value": 1,
+        "avg_risk_reduction": 0.045162592083215714,
+        "customers_below_threshold": 206,
+        "pct_rescued": 7.197763801537387
+      },
+      {
+        "feature": "TechSupport_Yes",
+        "target_value": 1,
+        "avg_risk_reduction": 0.031363628804683685,
+        "customers_below_threshold": 203,
+        "pct_rescued": 7.092941998602376
+      },
+      {
+        "feature": "PaperlessBilling_Yes",
+        "target_value": 0,
+        "avg_risk_reduction": 0.023207753896713257,
+        "customers_below_threshold": 130,
+        "pct_rescued": 4.5422781271837875
+      },
+      {
+        "feature": "PaymentMethod_Electronic check",
+        "target_value": 0,
+        "avg_risk_reduction": 0.021525584161281586,
+        "customers_below_threshold": 177,
+        "pct_rescued": 6.184486373165619
+      },
+      {
+        "feature": "StreamingTV_Yes",
+        "target_value": 0,
+        "avg_risk_reduction": 0.01355165895074606,
+        "customers_below_threshold": 128,
+        "pct_rescued": 4.472396925227113
+      },
+      {
+        "feature": "StreamingMovies_Yes",
+        "target_value": 0,
+        "avg_risk_reduction": 0.01019100658595562,
+        "customers_below_threshold": 109,
+        "pct_rescued": 3.8085255066387145
+      }
+    ],
+    "recommendation": "Top recommendation: Modify 'Contract_Two year' to 1 for average 49.5% risk reduction. Could rescue 100% of high-risk customers."
+  },
+  "business_insights": {
+    "summary": {
+      "total_customers_analyzed": 10,
+      "risk_distribution": {
+        "HIGH": 1,
+        "MEDIUM": 4,
+        "LOW": 5
+      }
+    },
+    "top_global_drivers": [
+      {
+        "feature": "Contract_Two year",
+        "business_name": "Two-Year Contract",
+        "importance": 0.25440317392349243,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "InternetService_Fiber optic",
+        "business_name": "Fiber Optic Internet",
+        "importance": 0.13607054948806763,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "Contract_One year",
+        "business_name": "One-Year Contract",
+        "importance": 0.12911516427993774,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "tenure",
+        "business_name": "Customer Tenure (months)",
+        "importance": 0.10648591816425323,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "MonthlyCharges",
+        "business_name": "Monthly Charges ($)",
+        "importance": 0.06514018774032593,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "TotalCharges",
+        "business_name": "Total Charges ($)",
+        "importance": 0.059265539050102234,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "PaymentMethod_Electronic check",
+        "business_name": "Electronic Check Payment",
+        "importance": 0.049631260335445404,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "StreamingMovies_Yes",
+        "business_name": "Streaming Movies",
+        "importance": 0.026109138503670692,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "OnlineSecurity_Yes",
+        "business_name": "Online Security Service",
+        "importance": 0.025368520990014076,
+        "direction": "decreases risk"
+      },
+      {
+        "feature": "PaperlessBilling_Yes",
+        "business_name": "Paperless Billing",
+        "importance": 0.020128745585680008,
+        "direction": "decreases risk"
+      }
+    ],
+    "recommended_interventions": [
+      {
+        "risk": true,
+        "recommendation": "Review pricing competitiveness for fiber plans",
+        "action": "Consider loyalty discount or bundle offer",
+        "priority": "HIGH",
+        "feature": "InternetService_Fiber optic",
+        "business_name": "Fiber Optic Internet",
+        "importance": 0.13607054948806763,
+        "direction": "protective"
+      },
+      {
+        "risk": true,
+        "recommendation": "New customer requires onboarding attention",
+        "action": "Engage with welcome program and satisfaction check",
+        "priority": "HIGH",
+        "feature": "tenure",
+        "business_name": "Customer Tenure (months)",
+        "importance": 0.10648591816425323,
+        "direction": "protective"
+      },
+      {
+        "risk": false,
+        "recommendation": "Monitor for contract renewal opportunity",
+        "action": "Proactive outreach before contract ends",
+        "priority": "MEDIUM",
+        "feature": "Contract_One year",
+        "business_name": "One-Year Contract",
+        "importance": 0.12911516427993774,
+        "direction": "protective"
+      },
+      {
+        "risk": true,
+        "recommendation": "Review if charges align with perceived value",
+        "action": "Offer plan optimization or value-add services",
+        "priority": "MEDIUM",
+        "feature": "MonthlyCharges",
+        "business_name": "Monthly Charges ($)",
+        "importance": 0.06514018774032593,
+        "direction": "protective"
+      },
+      {
+        "risk": true,
+        "recommendation": "Encourage automatic payment method",
+        "action": "Offer incentive for switching to auto-pay",
+        "priority": "MEDIUM",
+        "feature": "PaymentMethod_Electronic check",
+        "business_name": "Electronic Check Payment",
+        "importance": 0.049631260335445404,
+        "direction": "protective"
+      }
+    ],
+    "key_findings": [
+      "'Two-Year Contract' is the strongest predictor of churn, accounting for 25.4% of model importance.",
+      "Contract type is a critical factor. Month-to-month customers are at highest risk."
+    ]
+  }
+}

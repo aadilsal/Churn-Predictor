@@ -1,0 +1,255 @@
+{
+  "generated_at": "2026-01-17T00:22:30.436787",
+  "data_summary": {
+    "total_observations": 7043,
+    "events": 1869,
+    "censored": 5174,
+    "event_rate": 0.2653698707936959,
+    "median_duration": 29.0,
+    "mean_duration": 32.37271049268777,
+    "max_duration": 72.0
+  },
+  "kaplan_meier": {
+    "segment_summary": [
+      {
+        "segment": "Overall",
+        "median_survival": Infinity,
+        "survival_at_6mo": 0.8849051838817619,
+        "survival_at_12mo": 0.8432747847961215,
+        "survival_at_24mo": 0.7888067701019053
+      },
+      {
+        "segment": "One year",
+        "median_survival": Infinity,
+        "survival_at_6mo": 0.9972564264704988,
+        "survival_at_12mo": 0.9908082040748656,
+        "survival_at_24mo": 0.9782723764279155
+      },
+      {
+        "segment": "Two year",
+        "median_survival": Infinity,
+        "survival_at_6mo": 1.0,
+        "survival_at_12mo": 1.0,
+        "survival_at_24mo": 1.0
+      },
+      {
+        "segment": "Month-to-month",
+        "median_survival": 35.0,
+        "survival_at_6mo": 0.7858348940504861,
+        "survival_at_12mo": 0.7030966363488644,
+        "survival_at_24mo": 0.5859154739046663
+      }
+    ],
+    "insights": [
+      "'Overall' customers have the longest survival (median: inf months)",
+      "'Month-to-month' customers churn fastest (median: 35 months)"
+    ]
+  },
+  "cox_model": {
+    "concordance_index": 0.9248267786044194,
+    "hazard_ratios": [
+      {
+        "feature": "InternetService_Fiber optic",
+        "hazard_ratio": 2.1663169919632557,
+        "ci_lower": 1.7596236404861805,
+        "ci_upper": 2.6670074223213334,
+        "p_value": 3.1769476333121716e-13,
+        "significant": "True",
+        "effect": "increases churn risk by 117%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "PaymentMethod_Mailed check",
+        "hazard_ratio": 1.5686932247024623,
+        "ci_lower": 1.3387085111883483,
+        "ci_upper": 1.8381883828041112,
+        "p_value": 2.6027857768645e-08,
+        "significant": "True",
+        "effect": "increases churn risk by 57%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "PaymentMethod_Electronic check",
+        "hazard_ratio": 1.4987333943571304,
+        "ci_lower": 1.314392471273121,
+        "ci_upper": 1.7089277643119591,
+        "p_value": 1.5182583110088657e-09,
+        "significant": "True",
+        "effect": "increases churn risk by 50%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "PhoneService_Yes",
+        "hazard_ratio": 1.412462415140451,
+        "ci_lower": 1.1212689335236619,
+        "ci_upper": 1.7792788282422298,
+        "p_value": 0.0033715298778715526,
+        "significant": "True",
+        "effect": "increases churn risk by 41%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "PaperlessBilling_Yes",
+        "hazard_ratio": 1.1945217753454722,
+        "ci_lower": 1.0720896862091043,
+        "ci_upper": 1.3309355459056196,
+        "p_value": 0.001274603964164922,
+        "significant": "True",
+        "effect": "increases churn risk by 19%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "StreamingTV_Yes",
+        "hazard_ratio": 1.1773017851750187,
+        "ci_lower": 1.0440689375558756,
+        "ci_upper": 1.3275363757310412,
+        "p_value": 0.0077274985311190925,
+        "significant": "True",
+        "effect": "increases churn risk by 18%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "StreamingMovies_Yes",
+        "hazard_ratio": 1.1650153496036477,
+        "ci_lower": 1.0329865669975355,
+        "ci_upper": 1.3139190848890754,
+        "p_value": 0.012817324994043217,
+        "significant": "True",
+        "effect": "increases churn risk by 17%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "SeniorCitizen_Yes",
+        "hazard_ratio": 1.0255985834465597,
+        "ci_lower": 0.9197495463334332,
+        "ci_upper": 1.143629217933059,
+        "p_value": 0.6492572106716915,
+        "significant": "False",
+        "effect": "increases churn risk by 3%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "MonthlyCharges",
+        "hazard_ratio": 1.0131193402150043,
+        "ci_lower": 1.0065154978432707,
+        "ci_upper": 1.0197665110145306,
+        "p_value": 9.370018030881534e-05,
+        "significant": "True",
+        "effect": "increases churn risk by 1%",
+        "direction": "risk_factor"
+      },
+      {
+        "feature": "TotalCharges",
+        "hazard_ratio": 0.9989508239194261,
+        "ci_lower": 0.9988972896380013,
+        "ci_upper": 0.9990043610699341,
+        "p_value": 0.0,
+        "significant": "True",
+        "effect": "decreases churn risk by 0%",
+        "direction": "protective"
+      }
+    ]
+  },
+  "intervention_timing": {
+    "Overall": {
+      "segment": "Overall",
+      "milestones": {
+        "90pct_survival": 5.0,
+        "75pct_survival": 36.0,
+        "50pct_survival": null,
+        "25pct_survival": null
+      },
+      "recommendations": [
+        {
+          "timing": "early",
+          "trigger_month": 5,
+          "action": "Proactive engagement survey",
+          "urgency": "LOW",
+          "description": "Begin engagement at month 5 before 10% churn threshold"
+        },
+        {
+          "timing": "medium",
+          "trigger_month": 36,
+          "action": "Retention offer or contract discussion",
+          "urgency": "MEDIUM",
+          "description": "Present retention offer by month 36 (25% attrition point)"
+        }
+      ],
+      "summary": "Insufficient data to determine milestone timing."
+    },
+    "Month-to-month": {
+      "segment": "Month-to-month",
+      "milestones": {
+        "90pct_survival": 2.0,
+        "75pct_survival": 9.0,
+        "50pct_survival": 35.0,
+        "25pct_survival": 66.0
+      },
+      "recommendations": [
+        {
+          "timing": "early",
+          "trigger_month": 2,
+          "action": "Proactive engagement survey",
+          "urgency": "LOW",
+          "description": "Begin engagement at month 2 before 10% churn threshold"
+        },
+        {
+          "timing": "medium",
+          "trigger_month": 9,
+          "action": "Retention offer or contract discussion",
+          "urgency": "MEDIUM",
+          "description": "Present retention offer by month 9 (25% attrition point)"
+        },
+        {
+          "timing": "late",
+          "trigger_month": 35,
+          "action": "Escalated retention with significant incentive",
+          "urgency": "HIGH",
+          "description": "High-value intervention needed by month 35 (50% attrition)"
+        }
+      ],
+      "summary": "Median customer lifetime is 35 months. Begin proactive engagement at month 2."
+    },
+    "One year": {
+      "segment": "One year",
+      "milestones": {
+        "90pct_survival": 53.0,
+        "75pct_survival": 67.0,
+        "50pct_survival": null,
+        "25pct_survival": null
+      },
+      "recommendations": [
+        {
+          "timing": "early",
+          "trigger_month": 53,
+          "action": "Proactive engagement survey",
+          "urgency": "LOW",
+          "description": "Begin engagement at month 53 before 10% churn threshold"
+        },
+        {
+          "timing": "medium",
+          "trigger_month": 67,
+          "action": "Retention offer or contract discussion",
+          "urgency": "MEDIUM",
+          "description": "Present retention offer by month 67 (25% attrition point)"
+        }
+      ],
+      "summary": "Insufficient data to determine milestone timing."
+    },
+    "Two year": {
+      "segment": "Two year",
+      "milestones": {
+        "90pct_survival": null,
+        "75pct_survival": null,
+        "50pct_survival": null,
+        "25pct_survival": null
+      },
+      "recommendations": [],
+      "summary": "Insufficient data to determine milestone timing."
+    }
+  },
+  "key_findings": [
+    "'Overall' customers survive inf months longer than 'Month-to-month'",
+    "Highest risk factor: InternetService_Fiber optic (HR=2.17)"
+  ]
+}

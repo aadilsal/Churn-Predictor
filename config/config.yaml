@@ -1,0 +1,66 @@
+# Application Configuration
+
+# Project Metadata
+project:
+  name: "Customer Churn Intelligence Platform"
+  version: "0.1.0"
+  description: "Production-grade churn prediction system"
+
+# Data Configuration
+data:
+  raw_path: "data/raw"
+  processed_path: "data/processed"
+  features_path: "data/features"
+  dataset_url: "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
+  
+# Model Configuration
+model:
+  random_seed: 42
+  test_size: 0.2
+  validation_size: 0.2
+  
+  # Churn Classifier
+  churn_classifier:
+    algorithms:
+      - "logistic_regression"
+      - "random_forest"
+      - "xgboost"
+    calibration_method: "isotonic"  # or "platt"
+    
+  # Time-to-Churn
+  time_to_churn:
+    time_horizons: [30, 60, 90]  # days
+    algorithm: "cox_ph"  # Cox Proportional Hazards
+
+# Feature Engineering
+features:
+  categorical_encoding: "target"  # or "onehot", "ordinal"
+  scaling_method: "standard"  # or "minmax", "robust"
+  handle_missing: "median"  # or "mean", "mode", "drop"
+
+# Monitoring
+monitoring:
+  enable_drift_detection: true
+  drift_detection_method: "psi"  # Population Stability Index
+  psi_threshold: 0.2
+  calibration_threshold: 0.05
+  
+  # Alert Configuration
+  alerts:
+    enable: true
+    email: "alerts@example.com"
+    slack_webhook: null
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/churn_predictor.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+
+# Dashboard
+dashboard:
+  title: "Churn Intelligence Platform"
+  refresh_interval: 300  # seconds
+  max_customers_display: 1000

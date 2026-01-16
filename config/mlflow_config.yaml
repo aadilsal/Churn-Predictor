@@ -1,0 +1,36 @@
+# MLflow Configuration
+
+# Tracking URI
+tracking_uri: "http://localhost:5000"
+
+# Experiment Configuration
+experiment_name: "churn_prediction"
+default_artifact_location: "./mlartifacts"
+
+# Model Registry
+model_registry_uri: "sqlite:///mlruns/registry.db"
+
+# Run Configuration
+run_name_prefix: "churn_model"
+tags:
+  project: "churn_intelligence_platform"
+  environment: "development"
+
+# Autologging
+autolog:
+  disable: false
+  log_models: true
+  log_input_examples: true
+  log_model_signatures: true
+
+# Artifact Logging
+artifacts:
+  log_datasets: true
+  log_feature_importance: true
+  log_confusion_matrix: true
+  log_calibration_plots: true
+
+# Model Versioning
+model_versioning:
+  stage_transition_on_approval: true
+  auto_archive_old_versions: false

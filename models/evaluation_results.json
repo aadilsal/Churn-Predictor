@@ -1,0 +1,21 @@
+{
+  "xgboost": {
+    "accuracy": 0.7487579843860894,
+    "precision": 0.5175438596491229,
+    "recall": 0.7887700534759359,
+    "f1_score": 0.625,
+    "roc_auc": 0.8444328192410033,
+    "true_positives": 295,
+    "true_negatives": 760,
+    "false_positives": 275,
+    "false_negatives": 79,
+    "specificity": 0.7342995169082126,
+    "pr_auc": 0.6528732696420156,
+    "precision_at_5": 0.8142857142857143,
+    "precision_at_10": 0.75,
+    "precision_at_20": 0.6725978647686833,
+    "precision_at_30": 0.5829383886255924,
+    "brier_score": 0.16231364562854292,
+    "expected_calibration_error": 0.15029945677692289
+  }
+}
