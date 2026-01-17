@@ -1,0 +1,111 @@
+# Training Configuration
+# Separates hyperparameters and settings from code
+
+# ============================================
+# DATA CONFIGURATION
+# ============================================
+data:
+  path: "data/processed/telco_churn_processed.csv"
+  target: "Churn"
+  test_size: 0.2
+  val_size: 0.2
+  exclude_cols:
+    - customerID
+
+# ============================================
+# MODEL CONFIGURATION
+# ============================================
+model:
+  # Options: "xgboost", "logistic_regression"
+  type: "xgboost"
+  
+  # XGBoost default parameters (overridden by tuning)
+  params:
+    max_depth: 6
+    learning_rate: 0.1
+    n_estimators: 200
+    min_child_weight: 1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    gamma: 0
+    reg_alpha: 0.0
+    reg_lambda: 1.0
+
+# ============================================
+# TRAINING CONFIGURATION
+# ============================================
+training:
+  # Hyperparameter tuning
+  n_tuning_trials: 50
+  tuning_cv_folds: 5
+  
+  # Reproducibility
+  random_seed: 42
+  
+  # Early stopping
+  early_stopping_rounds: 50
+  
+  # Cross-validation
+  cv_folds: 5
+
+# ============================================
+# MODEL REGISTRATION
+# ============================================
+registration:
+  # Model registry name
+  model_name: "churn-predictor"
+  
+  # Auto-registration criteria
+  auto_register: true
+  min_roc_auc: 0.80
+  min_pr_auc: 0.50
+  
+  # Stage promotion
+  auto_promote_to_staging: true
+
+# ============================================
+# MLFLOW/DAGSHUB CONFIGURATION
+# ============================================
+mlflow:
+  experiment_name: "churn-model-training"
+  use_dagshub: true
+  dagshub_repo_owner: "aadilsal"
+  dagshub_repo_name: "Churn-Predictor"
+
+# ============================================
+# ARTIFACT STORAGE
+# ============================================
+artifacts:
+  models_dir: "models"
+  reports_dir: "reports"
+  
+  # What to log
+  log_model: true
+  log_preprocessor: true
+  log_plots: true
+  log_feature_importance: true
+
+# ============================================
+# FEATURE ENGINEERING
+# ============================================
+features:
+  # Encoding strategy
+  categorical_encoding: "onehot"  # Options: onehot, target
+  drop_first: true
+  
+  # Scaling
+  numerical_scaling: "standard"  # Options: standard, minmax, none
+  
+  # Feature selection (optional)
+  feature_selection: null  # Options: null, importance, rfe
+
+# ============================================
+# THRESHOLDING
+# ============================================
+threshold:
+  # Optimization method: f1, youden, cost
+  method: "f1"
+  
+  # Cost-based threshold parameters
+  cost_false_positive: 1.0
+  cost_false_negative: 5.0

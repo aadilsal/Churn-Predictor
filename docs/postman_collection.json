@@ -1,0 +1,112 @@
+{
+    "info": {
+        "name": "Churn Predictor API",
+        "description": "Collection for testing the Churn Prediction API endpoints",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Health",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/health"
+                    }
+                },
+                {
+                    "name": "Root",
+                    "request": {
+                        "method": "GET",
+                        "url": "{{baseUrl}}/"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Predictions",
+            "item": [
+                {
+                    "name": "Single Prediction - High Risk",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{baseUrl}}/predict",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"customerID\": \"7590-VHVEG\",\n  \"gender\": \"Female\",\n  \"SeniorCitizen\": 0,\n  \"Partner\": \"No\",\n  \"Dependents\": \"No\",\n  \"tenure\": 1,\n  \"PhoneService\": \"No\",\n  \"MultipleLines\": \"No phone service\",\n  \"InternetService\": \"Fiber optic\",\n  \"OnlineSecurity\": \"No\",\n  \"OnlineBackup\": \"No\",\n  \"DeviceProtection\": \"No\",\n  \"TechSupport\": \"No\",\n  \"StreamingTV\": \"No\",\n  \"StreamingMovies\": \"No\",\n  \"Contract\": \"Month-to-month\",\n  \"PaperlessBilling\": \"Yes\",\n  \"PaymentMethod\": \"Electronic check\",\n  \"MonthlyCharges\": 70.70,\n  \"TotalCharges\": 70.70\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Single Prediction - Low Risk",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{baseUrl}}/predict",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"customerID\": \"1234-LOYAL\",\n  \"gender\": \"Male\",\n  \"SeniorCitizen\": 0,\n  \"Partner\": \"Yes\",\n  \"Dependents\": \"Yes\",\n  \"tenure\": 60,\n  \"PhoneService\": \"Yes\",\n  \"MultipleLines\": \"Yes\",\n  \"InternetService\": \"DSL\",\n  \"OnlineSecurity\": \"Yes\",\n  \"OnlineBackup\": \"Yes\",\n  \"DeviceProtection\": \"Yes\",\n  \"TechSupport\": \"Yes\",\n  \"StreamingTV\": \"Yes\",\n  \"StreamingMovies\": \"Yes\",\n  \"Contract\": \"Two year\",\n  \"PaperlessBilling\": \"No\",\n  \"PaymentMethod\": \"Bank transfer (automatic)\",\n  \"MonthlyCharges\": 85.50,\n  \"TotalCharges\": 5130.00\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Batch Prediction",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{baseUrl}}/predict/batch",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"customers\": [\n    {\n      \"customerID\": \"001-HIGH\",\n      \"gender\": \"Female\",\n      \"SeniorCitizen\": 1,\n      \"Partner\": \"No\",\n      \"Dependents\": \"No\",\n      \"tenure\": 2,\n      \"PhoneService\": \"Yes\",\n      \"MultipleLines\": \"No\",\n      \"InternetService\": \"Fiber optic\",\n      \"OnlineSecurity\": \"No\",\n      \"OnlineBackup\": \"No\",\n      \"DeviceProtection\": \"No\",\n      \"TechSupport\": \"No\",\n      \"StreamingTV\": \"No\",\n      \"StreamingMovies\": \"No\",\n      \"Contract\": \"Month-to-month\",\n      \"PaperlessBilling\": \"Yes\",\n      \"PaymentMethod\": \"Electronic check\",\n      \"MonthlyCharges\": 75.00,\n      \"TotalCharges\": 150.00\n    },\n    {\n      \"customerID\": \"002-LOW\",\n      \"gender\": \"Male\",\n      \"SeniorCitizen\": 0,\n      \"Partner\": \"Yes\",\n      \"Dependents\": \"Yes\",\n      \"tenure\": 48,\n      \"PhoneService\": \"Yes\",\n      \"MultipleLines\": \"Yes\",\n      \"InternetService\": \"DSL\",\n      \"OnlineSecurity\": \"Yes\",\n      \"OnlineBackup\": \"Yes\",\n      \"DeviceProtection\": \"Yes\",\n      \"TechSupport\": \"Yes\",\n      \"StreamingTV\": \"Yes\",\n      \"StreamingMovies\": \"Yes\",\n      \"Contract\": \"Two year\",\n      \"PaperlessBilling\": \"No\",\n      \"PaymentMethod\": \"Credit card (automatic)\",\n      \"MonthlyCharges\": 95.00,\n      \"TotalCharges\": 4560.00\n    }\n  ],\n  \"include_explanations\": false\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Explanations",
+            "item": [
+                {
+                    "name": "Get Explanation",
+                    "request": {
+                        "method": "POST",
+                        "url": "{{baseUrl}}/explain",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"customerID\": \"7590-VHVEG\",\n  \"gender\": \"Female\",\n  \"SeniorCitizen\": 0,\n  \"Partner\": \"No\",\n  \"Dependents\": \"No\",\n  \"tenure\": 1,\n  \"PhoneService\": \"No\",\n  \"MultipleLines\": \"No phone service\",\n  \"InternetService\": \"Fiber optic\",\n  \"OnlineSecurity\": \"No\",\n  \"OnlineBackup\": \"No\",\n  \"DeviceProtection\": \"No\",\n  \"TechSupport\": \"No\",\n  \"StreamingTV\": \"No\",\n  \"StreamingMovies\": \"No\",\n  \"Contract\": \"Month-to-month\",\n  \"PaperlessBilling\": \"Yes\",\n  \"PaymentMethod\": \"Electronic check\",\n  \"MonthlyCharges\": 70.70,\n  \"TotalCharges\": 70.70\n}"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8000"
+        }
+    ]
+}

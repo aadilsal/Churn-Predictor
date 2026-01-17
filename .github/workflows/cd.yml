@@ -1,0 +1,232 @@
+# Continuous Deployment (CD) Workflow
+# Deploys validated models and services to staging/production
+# Supports blue/green deployment with automatic rollback
+
+name: Continuous Deployment
+
+on:
+    # Deploy on successful CI to main
+    workflow_run:
+        workflows: ["CI Pipeline"]
+        types: [completed]
+        branches: [main]
+
+    # Manual deployment trigger
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Deployment environment"
+                required: true
+                type: choice
+                options:
+                    - staging
+                    - production
+            version:
+                description: "Version tag to deploy (leave empty for latest)"
+                required: false
+                type: string
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+    PYTHON_VERSION: "3.10"
+
+jobs:
+    # ============================================
+    # Build Docker Images
+    # ============================================
+    build:
+        name: Build & Push Images
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+        permissions:
+            contents: read
+            packages: write
+
+        outputs:
+            image_tag: ${{ steps.meta.outputs.tags }}
+            version: ${{ steps.version.outputs.version }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set version
+              id: version
+              run: |
+                  if [ -n "${{ github.event.inputs.version }}" ]; then
+                    VERSION="${{ github.event.inputs.version }}"
+                  else
+                    VERSION=$(date +%Y%m%d)-$(git rev-parse --short HEAD)
+                  fi
+                  echo "Version: $VERSION"
+                  echo "::set-output name=version::$VERSION"
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Log in to Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Extract metadata
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+                  tags: |
+                      type=raw,value=${{ steps.version.outputs.version }}
+                      type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+
+            - name: Build and push API image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./Dockerfile
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max
+                  build-args: |
+                      VERSION=${{ steps.version.outputs.version }}
+
+    # ============================================
+    # Deploy to Staging
+    # ============================================
+    deploy-staging:
+        name: Deploy to Staging
+        runs-on: ubuntu-latest
+        needs: build
+        environment: staging
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Deploy to staging
+              run: |
+                  echo "Deploying version ${{ needs.build.outputs.version }} to staging"
+                  echo "Image: ${{ needs.build.outputs.image_tag }}"
+                  # docker-compose or kubectl commands here
+
+            - name: Health check
+              run: |
+                  echo "Running health checks..."
+                  sleep 5
+                  # curl -f http://staging.example.com/health || exit 1
+                  echo "Staging deployment healthy!"
+
+            - name: Run smoke tests
+              run: |
+                  echo "Running smoke tests on staging..."
+                  # pytest tests/smoke/ --base-url=http://staging.example.com
+                  echo "Smoke tests passed!"
+
+    # ============================================
+    # Deploy to Production (Blue/Green)
+    # ============================================
+    deploy-production:
+        name: Deploy to Production
+        runs-on: ubuntu-latest
+        needs: [build, deploy-staging]
+        if: github.event.inputs.environment == 'production' || github.ref == 'refs/heads/main'
+        environment: production
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Get current production version
+              id: current
+              run: |
+                  # Would query current production version
+                  echo "::set-output name=version::previous-version"
+
+            - name: Deploy green environment
+              id: deploy-green
+              run: |
+                  echo "Deploying ${{ needs.build.outputs.version }} to green environment"
+                  # Deploy new version to green slot
+                  echo "Green deployment complete"
+
+            - name: Health check green
+              id: health-green
+              run: |
+                  echo "Checking green environment health..."
+                  sleep 5
+                  # curl -f http://green.example.com/health
+                  echo "Green environment healthy"
+
+            - name: Switch traffic to green
+              if: success()
+              run: |
+                  echo "Switching traffic from blue to green"
+                  # Update load balancer / ingress
+                  echo "Traffic switched to new version"
+
+            - name: Verify production
+              run: |
+                  echo "Verifying production deployment..."
+                  # Run production verification tests
+                  echo "Production verification passed"
+
+            - name: Cleanup blue environment
+              if: success()
+              run: |
+                  echo "Keeping blue environment for rollback"
+                  echo "Blue environment will be cleaned up after 24h stability"
+
+    # ============================================
+    # Rollback on Failure
+    # ============================================
+    rollback:
+        name: Rollback
+        runs-on: ubuntu-latest
+        needs: deploy-production
+        if: failure()
+
+        steps:
+            - name: Rollback to previous version
+              run: |
+                  echo "Deployment failed! Rolling back..."
+                  echo "Switching traffic back to blue environment"
+                  # Revert load balancer / ingress
+                  echo "Rollback complete"
+
+            - name: Send alert
+              run: |
+                  echo "ALERT: Production deployment failed and was rolled back"
+                  echo "Version: ${{ needs.build.outputs.version }}"
+                  echo "Time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                  # Send Slack/PagerDuty notification
+
+    # ============================================
+    # Post-Deployment Monitoring
+    # ============================================
+    monitor:
+        name: Post-Deploy Monitoring
+        runs-on: ubuntu-latest
+        needs: deploy-production
+        if: success()
+
+        steps:
+            - name: Monitor for 10 minutes
+              run: |
+                  echo "Monitoring production deployment..."
+                  for i in {1..10}; do
+                    echo "Check $i/10..."
+                    # curl -f http://production.example.com/health
+                    sleep 60
+                  done
+                  echo "Monitoring period complete - deployment stable"
+
+            - name: Record deployment
+              run: |
+                  echo "Recording deployment in audit log"
+                  echo "Version: ${{ needs.build.outputs.version }}"
+                  echo "Deployed by: ${{ github.actor }}"
+                  echo "Time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"

@@ -1,0 +1,465 @@
+{
+    "info": {
+        "name": "Churn Prediction API",
+        "description": "API collection for Customer Churn Intelligence Platform testing",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_postman_id": "churn-api-collection-v1"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8000",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health & Info",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/health",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "health"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has status field', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('status');",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Root Endpoint",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                ""
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "OpenAPI Spec",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/openapi.json",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "openapi.json"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Single Prediction",
+            "item": [
+                {
+                    "name": "Predict - Standard Customer",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customerID\": \"TEST-001\",\n    \"gender\": \"Male\",\n    \"SeniorCitizen\": \"No\",\n    \"Partner\": \"Yes\",\n    \"Dependents\": \"No\",\n    \"tenure\": 12,\n    \"PhoneService\": \"Yes\",\n    \"MultipleLines\": \"No\",\n    \"InternetService\": \"Fiber optic\",\n    \"OnlineSecurity\": \"No\",\n    \"OnlineBackup\": \"No\",\n    \"DeviceProtection\": \"No\",\n    \"TechSupport\": \"No\",\n    \"StreamingTV\": \"Yes\",\n    \"StreamingMovies\": \"Yes\",\n    \"Contract\": \"Month-to-month\",\n    \"PaperlessBilling\": \"Yes\",\n    \"PaymentMethod\": \"Electronic check\",\n    \"MonthlyCharges\": 85.50,\n    \"TotalCharges\": 1026.0\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/predict",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "predict"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has churn_probability', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('churn_probability');",
+                                    "});",
+                                    "",
+                                    "pm.test('Probability is between 0 and 1', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData.churn_probability).to.be.within(0, 1);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has risk_level', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('risk_level');",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has summary', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('summary');",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Predict - High Risk Customer",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customerID\": \"HIGH-RISK-001\",\n    \"gender\": \"Female\",\n    \"SeniorCitizen\": \"Yes\",\n    \"Partner\": \"No\",\n    \"Dependents\": \"No\",\n    \"tenure\": 1,\n    \"PhoneService\": \"Yes\",\n    \"MultipleLines\": \"No\",\n    \"InternetService\": \"Fiber optic\",\n    \"OnlineSecurity\": \"No\",\n    \"OnlineBackup\": \"No\",\n    \"DeviceProtection\": \"No\",\n    \"TechSupport\": \"No\",\n    \"StreamingTV\": \"No\",\n    \"StreamingMovies\": \"No\",\n    \"Contract\": \"Month-to-month\",\n    \"PaperlessBilling\": \"Yes\",\n    \"PaymentMethod\": \"Electronic check\",\n    \"MonthlyCharges\": 95.00,\n    \"TotalCharges\": 95.00\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/predict",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "predict"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('High risk probability >= 0.5', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData.churn_probability).to.be.at.least(0.5);",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Predict - Low Risk Customer",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customerID\": \"LOW-RISK-001\",\n    \"gender\": \"Male\",\n    \"SeniorCitizen\": \"No\",\n    \"Partner\": \"Yes\",\n    \"Dependents\": \"Yes\",\n    \"tenure\": 60,\n    \"PhoneService\": \"Yes\",\n    \"MultipleLines\": \"Yes\",\n    \"InternetService\": \"DSL\",\n    \"OnlineSecurity\": \"Yes\",\n    \"OnlineBackup\": \"Yes\",\n    \"DeviceProtection\": \"Yes\",\n    \"TechSupport\": \"Yes\",\n    \"StreamingTV\": \"Yes\",\n    \"StreamingMovies\": \"Yes\",\n    \"Contract\": \"Two year\",\n    \"PaperlessBilling\": \"No\",\n    \"PaymentMethod\": \"Bank transfer (automatic)\",\n    \"MonthlyCharges\": 65.00,\n    \"TotalCharges\": 3900.00\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/predict",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "predict"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Low risk probability < 0.5', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData.churn_probability).to.be.below(0.5);",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Predict - Invalid (Missing Fields)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customerID\": \"INVALID-001\",\n    \"gender\": \"Male\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/predict",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "predict"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 422', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has error detail', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('detail');",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Batch Prediction",
+            "item": [
+                {
+                    "name": "Batch Predict - Multiple Customers",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customers\": [\n        {\n            \"customerID\": \"BATCH-001\",\n            \"gender\": \"Male\",\n            \"SeniorCitizen\": \"No\",\n            \"Partner\": \"Yes\",\n            \"Dependents\": \"No\",\n            \"tenure\": 12,\n            \"PhoneService\": \"Yes\",\n            \"MultipleLines\": \"No\",\n            \"InternetService\": \"Fiber optic\",\n            \"OnlineSecurity\": \"No\",\n            \"OnlineBackup\": \"No\",\n            \"DeviceProtection\": \"No\",\n            \"TechSupport\": \"No\",\n            \"StreamingTV\": \"Yes\",\n            \"StreamingMovies\": \"Yes\",\n            \"Contract\": \"Month-to-month\",\n            \"PaperlessBilling\": \"Yes\",\n            \"PaymentMethod\": \"Electronic check\",\n            \"MonthlyCharges\": 85.50,\n            \"TotalCharges\": 1026.0\n        },\n        {\n            \"customerID\": \"BATCH-002\",\n            \"gender\": \"Female\",\n            \"SeniorCitizen\": \"Yes\",\n            \"Partner\": \"No\",\n            \"Dependents\": \"No\",\n            \"tenure\": 1,\n            \"PhoneService\": \"Yes\",\n            \"MultipleLines\": \"No\",\n            \"InternetService\": \"Fiber optic\",\n            \"OnlineSecurity\": \"No\",\n            \"OnlineBackup\": \"No\",\n            \"DeviceProtection\": \"No\",\n            \"TechSupport\": \"No\",\n            \"StreamingTV\": \"No\",\n            \"StreamingMovies\": \"No\",\n            \"Contract\": \"Month-to-month\",\n            \"PaperlessBilling\": \"Yes\",\n            \"PaymentMethod\": \"Electronic check\",\n            \"MonthlyCharges\": 95.00,\n            \"TotalCharges\": 95.00\n        }\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/predict/batch",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "predict",
+                                "batch"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has summary', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('summary');",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has predictions array', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('predictions');",
+                                    "    pm.expect(jsonData.predictions).to.be.an('array');",
+                                    "});",
+                                    "",
+                                    "pm.test('Prediction count matches input', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData.predictions.length).to.equal(2);",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Batch Predict - Empty (Should Fail)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customers\": []\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/predict/batch",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "predict",
+                                "batch"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 422', function () {",
+                                    "    pm.response.to.have.status(422);",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Explanations",
+            "item": [
+                {
+                    "name": "Explain Prediction",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"customerID\": \"EXPLAIN-001\",\n    \"gender\": \"Male\",\n    \"SeniorCitizen\": \"No\",\n    \"Partner\": \"Yes\",\n    \"Dependents\": \"No\",\n    \"tenure\": 12,\n    \"PhoneService\": \"Yes\",\n    \"MultipleLines\": \"No\",\n    \"InternetService\": \"Fiber optic\",\n    \"OnlineSecurity\": \"No\",\n    \"OnlineBackup\": \"No\",\n    \"DeviceProtection\": \"No\",\n    \"TechSupport\": \"No\",\n    \"StreamingTV\": \"Yes\",\n    \"StreamingMovies\": \"Yes\",\n    \"Contract\": \"Month-to-month\",\n    \"PaperlessBilling\": \"Yes\",\n    \"PaymentMethod\": \"Electronic check\",\n    \"MonthlyCharges\": 85.50,\n    \"TotalCharges\": 1026.0\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/explain",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "explain"
+                            ]
+                        }
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "pm.test('Status code is 200', function () {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has risk_factors', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('risk_factors');",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has protective_factors', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('protective_factors');",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has narrative', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('narrative');",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has recommended_actions', function () {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData).to.have.property('recommended_actions');",
+                                    "});"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

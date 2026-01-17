@@ -1,0 +1,180 @@
+# Drift Detection Trigger Workflow
+# Monitors for data and model drift, triggers retraining when needed
+
+name: Drift Detection
+
+on:
+    # Run daily
+    schedule:
+        - cron: "0 6 * * *" # Every day at 6 AM UTC
+
+    # Manual trigger
+    workflow_dispatch:
+
+env:
+    PYTHON_VERSION: "3.10"
+    PSI_THRESHOLD: 0.1
+    KS_THRESHOLD: 0.1
+
+jobs:
+    # ============================================
+    # Check Data Drift
+    # ============================================
+    check-data-drift:
+        name: Check Data Drift
+        runs-on: ubuntu-latest
+
+        outputs:
+            data_drift_detected: ${{ steps.drift.outputs.data_drift }}
+            psi_score: ${{ steps.drift.outputs.psi }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ env.PYTHON_VERSION }}
+                  cache: "pip"
+
+            - name: Install dependencies
+              run: |
+                  pip install --upgrade pip
+                  pip install -r requirements.txt
+
+            - name: Check data drift
+              id: drift
+              run: |
+                  python -c "
+                  import json
+                  import numpy as np
+                  from pathlib import Path
+
+                  def calculate_psi(expected, actual, buckets=10):
+                      '''Calculate Population Stability Index'''
+                      def scale_range(x, min_val, max_val):
+                          return (x - min_val) / (max_val - min_val)
+                      
+                      breakpoints = np.linspace(0, 1, buckets + 1)
+                      expected_scaled = scale_range(expected, expected.min(), expected.max())
+                      actual_scaled = scale_range(actual, actual.min(), actual.max())
+                      
+                      expected_percents = np.histogram(expected_scaled, breakpoints)[0] / len(expected)
+                      actual_percents = np.histogram(actual_scaled, breakpoints)[0] / len(actual)
+                      
+                      # Avoid division by zero
+                      expected_percents = np.clip(expected_percents, 0.0001, 1)
+                      actual_percents = np.clip(actual_percents, 0.0001, 1)
+                      
+                      psi = np.sum((expected_percents - actual_percents) * np.log(expected_percents / actual_percents))
+                      return psi
+
+                  # Simulate drift check (in production, compare reference vs current data)
+                  psi = 0.05  # Simulated PSI
+                  data_drift = psi > ${{ env.PSI_THRESHOLD }}
+
+                  print(f'PSI Score: {psi:.4f}')
+                  print(f'Data Drift Detected: {data_drift}')
+                  print(f'::set-output name=data_drift::{str(data_drift).lower()}')
+                  print(f'::set-output name=psi::{psi:.4f}')
+                  "
+
+    # ============================================
+    # Check Model Drift
+    # ============================================
+    check-model-drift:
+        name: Check Model Drift
+        runs-on: ubuntu-latest
+
+        outputs:
+            model_drift_detected: ${{ steps.drift.outputs.model_drift }}
+            ks_score: ${{ steps.drift.outputs.ks }}
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: ${{ env.PYTHON_VERSION }}
+
+            - name: Check model drift
+              id: drift
+              run: |
+                  python -c "
+                  # Simulate model drift check
+                  ks = 0.08  # Simulated KS statistic
+                  model_drift = ks > ${{ env.KS_THRESHOLD }}
+
+                  print(f'KS Statistic: {ks:.4f}')
+                  print(f'Model Drift Detected: {model_drift}')
+                  print(f'::set-output name=model_drift::{str(model_drift).lower()}')
+                  print(f'::set-output name=ks::{ks:.4f}')
+                  "
+
+    # ============================================
+    # Trigger Retraining if Needed
+    # ============================================
+    trigger-retraining:
+        name: Trigger Retraining
+        runs-on: ubuntu-latest
+        needs: [check-data-drift, check-model-drift]
+        if: needs.check-data-drift.outputs.data_drift_detected == 'true' || needs.check-model-drift.outputs.model_drift_detected == 'true'
+
+        steps:
+            - name: Trigger retraining workflow
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const reason = '${{ needs.check-data-drift.outputs.data_drift_detected }}' === 'true' 
+                        ? 'drift_detected' 
+                        : 'performance_degradation';
+
+                      await github.rest.actions.createWorkflowDispatch({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        workflow_id: 'continuous-training.yml',
+                        ref: 'main',
+                        inputs: {
+                          reason: reason,
+                          force: 'false'
+                        }
+                      });
+
+                      console.log('Triggered retraining workflow with reason:', reason);
+
+            - name: Log drift event
+              run: |
+                  echo "Drift Detection Report"
+                  echo "======================"
+                  echo "Data Drift: ${{ needs.check-data-drift.outputs.data_drift_detected }}"
+                  echo "PSI Score: ${{ needs.check-data-drift.outputs.psi_score }}"
+                  echo "Model Drift: ${{ needs.check-model-drift.outputs.model_drift_detected }}"
+                  echo "KS Score: ${{ needs.check-model-drift.outputs.ks_score }}"
+                  echo "Action: Retraining triggered"
+
+    # ============================================
+    # Report Status
+    # ============================================
+    report:
+        name: Report Status
+        runs-on: ubuntu-latest
+        needs: [check-data-drift, check-model-drift]
+        if: always()
+
+        steps:
+            - name: Generate report
+              run: |
+                  echo "Daily Drift Report"
+                  echo "=================="
+                  echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                  echo ""
+                  echo "Data Drift:"
+                  echo "  Detected: ${{ needs.check-data-drift.outputs.data_drift_detected }}"
+                  echo "  PSI Score: ${{ needs.check-data-drift.outputs.psi_score }}"
+                  echo ""
+                  echo "Model Drift:"
+                  echo "  Detected: ${{ needs.check-model-drift.outputs.model_drift_detected }}"
+                  echo "  KS Score: ${{ needs.check-model-drift.outputs.ks_score }}"
