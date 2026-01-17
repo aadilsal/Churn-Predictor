@@ -246,17 +246,25 @@ def init_session_state():
 
 
 def load_model():
-    """Load the trained model."""
+    """Load the trained model.
+    
+    Handles version compatibility issues gracefully.
+    """
     import joblib
     
     model_path = Path("models/final_model.joblib")
     preprocessor_path = Path("models/feature_preprocessor.joblib")
     
     if model_path.exists() and preprocessor_path.exists():
-        model = joblib.load(model_path)
-        preprocessor = joblib.load(preprocessor_path)
-        st.session_state.model_loaded = True
-        return model, preprocessor
+        try:
+            model = joblib.load(model_path)
+            preprocessor = joblib.load(preprocessor_path)
+            st.session_state.model_loaded = True
+            return model, preprocessor
+        except Exception as e:
+            st.warning(f"⚠️ Model loading failed (version compatibility). Using demo mode.")
+            st.session_state.model_loaded = False
+            return None, None
     return None, None
 
 
