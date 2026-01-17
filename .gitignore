@@ -39,11 +39,10 @@ data/raw/*.csv
 data/processed/*.csv
 data/features/*.parquet
 *.pkl
-*.joblib
 
-# Models
-models/*.pkl
-models/*.joblib
+# Models (keep final models for deployment)
+# models/*.pkl
+# models/*.joblib  # Commented out - needed for deployment
 *.h5
 *.pt
 
